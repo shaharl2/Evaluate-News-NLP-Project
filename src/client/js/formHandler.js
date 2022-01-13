@@ -4,7 +4,7 @@ function handleSubmit(event) {
   let formText = document.getElementById("name").value;
   console.log("::: Form Submitted :::");
   if (Client.checkForName(formText)) {
-    fetch("http://localhost:8080/test", {
+    fetch("http://localhost:8088/test", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       mode: "cors",
