@@ -1,9 +1,7 @@
 function handleSubmit(event) {
   event.preventDefault();
 
-  // check what text was put into the form field
   let formText = document.getElementById("name").value;
-  //   Client.checkForName(formText);
   console.log("::: Form Submitted :::");
   if (Client.checkForName(formText)) {
     fetch("http://localhost:8080/test", {
@@ -14,14 +12,15 @@ function handleSubmit(event) {
         url: formText,
       }),
     })
-      // .then((res) => res.json())
       .then((res) => {
         console.log("RESPONSE, WAITING TO PARSE...", res);
         return res.json();
       })
       .then((data) => {
         console.log("DATA PARSED...");
-        document.getElementById("results").innerHTML = data.subjectivity;
+        document.getElementById(
+          "results"
+        ).innerHTML = `Model: ${data.model} <br> Agreement: ${data.agreement} <br> Subjectivity: ${data.subjectivity} <br> Confidence: ${data.confidence} <br> Irony: ${data.irony}`;
         console.log(data);
         console.log(data.status.code);
         console.log(formText);
@@ -34,7 +33,7 @@ function handleSubmit(event) {
       });
   } else {
     if (formText === "") {
-      alert("Text field can't be empty. Please type in a value.");
+      alert("The text field can't be left empty. Please type in a value.");
     } else {
       alert("Please type a valid URL");
     }
